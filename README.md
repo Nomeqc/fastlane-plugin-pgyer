@@ -20,7 +20,7 @@ Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plu
 
 Just specify the `api_key` and `user_key` associated with your pgyer account.
 
-```
+```ruby
 lane :beta do
   gym
   pgyer(api_key: "7f15xxxxxxxxxxxxxxxxxx141", user_key: "4a5bcxxxxxxxxxxxxxxx3a9e")
@@ -29,7 +29,7 @@ end
 
 You can also set a password to protect the App from being downloaded publicly:
 
-```
+```ruby
 lane :beta do
   gym
   pgyer(api_key: "7f15xxxxxxxxxxxxxxxxxx141", user_key: "4a5bcxxxxxxxxxxxxxxx3a9e", password: "123456", install_type: "2")
@@ -38,7 +38,7 @@ end
 
 Set a version update description for App:
 
-```
+```ruby
 lane :beta do
   gym
   pgyer(api_key: "7f15xxxxxxxxxxxxxxxxxx141", user_key: "4a5bcxxxxxxxxxxxxxxx3a9e", update_description: "update by fastlane")
