@@ -45,6 +45,18 @@ lane :beta do
 end
 ```
 
+Get shared values after upload:
+
+```ruby
+page_url = Actions.lane_context[SharedValues::PGYER_PAGE_URL] #App下载页面地址
+appName =  Actions.lane_context[SharedValues::PGYER_APP_NAME] #App名称
+version = Actions.lane_context[SharedValues::PGYER_APP_VERSION] #App版本号
+buildNumber = Actions.lane_context[SharedValues::PGYER_APP_BUILD] #App编译号
+appId = Actions.lane_context[SharedValues::PGYER_APP_ID] #App bundle ID
+```
+
+
+
 ## Run tests for this plugin
 
 To run both the tests, and code style validation, run
