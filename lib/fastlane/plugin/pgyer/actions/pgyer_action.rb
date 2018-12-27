@@ -3,6 +3,13 @@ require 'faraday_middleware'
 
 module Fastlane
   module Actions
+    module SharedValues
+      PGYER_PAGE_URL = :PGYER_PAGE_URL
+      PGYER_APP_NAME = :PGYER_APP_NAME
+      PGYER_APP_VERSION = :PGYER_APP_VERSION
+      PGYER_APP_BUILD = :PGYER_APP_BUILD
+      PGYER_APP_ID = :PGYER_APP_ID
+    end
     class PgyerAction < Action
       def self.run(params)
         UI.message("The pgyer plugin is working.")
@@ -70,7 +77,14 @@ module Fastlane
           UI.user_error!("PGYER Plugin Error: #{info['message']}")
         end
 
-        UI.success "Upload success. Visit this URL to see: https://www.pgyer.com/#{info['data']['appShortcutUrl']}"
+        puts "info:#{info}"
+        page_url = "https://www.pgyer.com/#{info['data']['appShortcutUrl']}"
+        Actions.lane_context[SharedValues::PGYER_PAGE_URL] = page_url
+        Actions.lane_context[SharedValues::PGYER_APP_NAME] = info['data']['appName']
+        Actions.lane_context[SharedValues::PGYER_APP_VERSION] = info['data']['appVersion']
+        Actions.lane_context[SharedValues::PGYER_APP_BUILD] = info['data']['appVersionNo']
+        Actions.lane_context[SharedValues::PGYER_APP_ID] = info['data']['appIdentifier']
+        UI.success "Upload success. Visit this URL to see: #{page_url}"
       end
 
       def self.description
@@ -79,6 +93,21 @@ module Fastlane
 
       def self.authors
         ["rexshi"]
+      end
+
+      def self.output
+        # Define the shared values you are going to provide
+        # Example
+      #   PGYER_APP_NAME = :PGYER_APP_NAME
+      # PGYER_APP_VERSION = :PGYER_APP_VERSION
+      # PGYER_APP_BUILD = :PGYER_APP_BUILD
+        [
+          ['PGYER_PAGE_URL', 'App在蒲公英上的地址'],
+          ['PGYER_APP_NAME', 'App名称'],
+          ['PGYER_APP_VERSION', 'App版本号'],
+          ['PGYER_APP_BUILD', 'App编译号'],
+          ['PGYER_APP_ID', 'App identifier']
+        ]
       end
 
       def self.return_value
