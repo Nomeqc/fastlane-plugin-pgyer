@@ -77,12 +77,12 @@ module Fastlane
           UI.user_error!("PGYER Plugin Error: #{info['message']}")
         end
 
-        puts "info:#{info}"
+        puts "response body:#{info}"
         page_url = "https://www.pgyer.com/#{info['data']['appShortcutUrl']}"
         Actions.lane_context[SharedValues::PGYER_PAGE_URL] = page_url
         Actions.lane_context[SharedValues::PGYER_APP_NAME] = info['data']['appName']
         Actions.lane_context[SharedValues::PGYER_APP_VERSION] = info['data']['appVersion']
-        Actions.lane_context[SharedValues::PGYER_APP_BUILD] = info['data']['appVersionNo']
+        Actions.lane_context[SharedValues::PGYER_APP_BUILD] = info['data']['appBuildVersion']
         Actions.lane_context[SharedValues::PGYER_APP_ID] = info['data']['appIdentifier']
         UI.success "Upload success. Visit this URL to see: #{page_url}"
       end
